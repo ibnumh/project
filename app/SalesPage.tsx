@@ -5,6 +5,16 @@ import { type FormEvent, useEffect, useMemo, useState } from "react";
 const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
 const assetPath = (path: string) => `${basePath}${path}`;
 
+declare global {
+  interface Window {
+    gtag?: (command: "event", eventName: string, parameters?: Record<string, unknown>) => void;
+  }
+}
+
+const trackEvent = (eventName: string, parameters?: Record<string, unknown>) => {
+  window.gtag?.("event", eventName, parameters);
+};
+
 type IconName =
   | "arrow-right"
   | "bar-chart-2"
@@ -226,12 +236,22 @@ export function SalesPage() {
   }, [checkoutOpen]);
 
   const openCheckout = () => {
+    trackEvent("begin_checkout", {
+      currency: "IDR",
+      value: 47000,
+      items: [{ item_id: "paket-panduan-shopee", item_name: "3 Panduan + 1 Kalkulator" }],
+    });
     setPaymentStep(1);
     setCheckoutOpen(true);
   };
 
   const openWhatsappProof = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    trackEvent("generate_lead", {
+      currency: "IDR",
+      value: 47000,
+      method: "whatsapp_payment_proof",
+    });
     const popup = window.open(whatsappUrl, "_blank", "noopener,noreferrer");
     if (!popup) window.location.href = whatsappUrl;
   };
