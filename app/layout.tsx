@@ -35,7 +35,7 @@ export const metadata: Metadata = {
     url: siteUrl,
     images: [
       {
-        url: `${siteUrl}/og.png`,
+        url: `${siteUrl}/og.jpg`,
         width: 1536,
         height: 864,
         alt: "IBNU Project — 3 Panduan dan 1 Kalkulator Shopee",
@@ -46,7 +46,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "3 Panduan + 1 Kalkulator Shopee — Rp47.000",
     description: "Sistem praktis untuk traffic, harga, laba, dan ulasan tokomu.",
-    images: [`${siteUrl}/og.png`],
+    images: [`${siteUrl}/og.jpg`],
   },
 };
 
