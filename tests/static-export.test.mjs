@@ -11,8 +11,11 @@ test("exports the complete sales page", async () => {
   assert.match(html, /Bintang Lima Bukan Kebetulan/);
   assert.match(html, /Rp47\.000/);
   assert.match(html, /6283854581787/);
-  assert.match(html, /Draf · bukan testimoni nyata/i);
-  assert.match(html, /Foto pemilik/);
+  assert.match(html, /Dany P\./);
+  assert.match(html, /Najwa T\./);
+  assert.match(html, /Hesti A\./);
+  assert.match(html, /ibnu-owner\.png/);
+  assert.match(html, /Rp596\.000/);
   assert.match(html, /Isi dirahasiakan/);
 });
 
@@ -26,6 +29,7 @@ test("checkout collects buyer identity before WhatsApp confirmation", async () =
   assert.match(source, /Alamat email/);
   assert.match(source, /placeholder="Nama lengkap"[\s\S]*required/);
   assert.match(source, /Email \(opsional\)/);
+  assert.match(source, /checkout_step_3/);
 });
 
 test("does not publish the paid products", async () => {
@@ -47,9 +51,10 @@ test("includes the purchase assets", async () => {
   const requiredAssets = [
     "../out/og.png",
     "../out/assets/qris-ibnu.jpg",
-    "../out/assets/cover-toko-ramai.png",
-    "../out/assets/cover-harga-untung.png",
-    "../out/assets/cover-bintang-lima.png",
+    "../out/assets/cover-toko-ramai-edisi-baru.png",
+    "../out/assets/cover-harga-untung-edisi-baru.png",
+    "../out/assets/cover-bintang-lima-edisi-baru.png",
+    "../out/assets/ibnu-owner.png",
   ];
 
   for (const relativePath of requiredAssets) {
