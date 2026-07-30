@@ -845,6 +845,11 @@ export function SalesPage() {
                 "Tidak. Angka studi kasus di halaman ini adalah hasil historis satu toko yang dikelola penulis, bukan janji penghasilan. Hasil setiap toko bergantung pada produk, eksekusi, pasar, dan angka biaya masing-masing.",
             },
             {
+              question: "Bagaimana kebijakan pembatalan dan refund?",
+              answer:
+                "Pesanan yang belum dikirim dapat dibatalkan. Setelah file digital diterima dan berfungsi, refund tidak berlaku untuk perubahan pikiran. Kami tetap membantu penggantian atau refund untuk pembayaran ganda, file yang salah, tidak lengkap, rusak, tidak dapat digunakan sebagaimana dijanjikan, atau tidak terkirim. Laporkan kendala paling lambat 2 hari kerja setelah produk diterima.",
+            },
+            {
               question: "Bisa bayar dari bank apa saja?",
               answer:
                 "Gunakan aplikasi bank atau dompet digital yang mendukung QRIS. Contohnya BCA, BRI, Mandiri, BNI, BSI, BTN, CIMB Niaga, Permata, Danamon, OCBC, Bank Mega, GoPay, DANA, ShopeePay, dan LinkAja. Daftar ini bukan daftar lengkap.",
@@ -864,6 +869,19 @@ export function SalesPage() {
               </div>
             </article>
           ))}
+          <div className="policy-link-card">
+            <div>
+              <strong>Kebijakan lengkap untuk produk digital</strong>
+              <span>
+                Baca syarat pembatalan, kondisi refund, proses pengajuan, dan
+                jangka waktu penyelesaian.
+              </span>
+            </div>
+            <a href={assetPath("/kebijakan-pengembalian/")}>
+              Kebijakan pembatalan &amp; refund
+              <Icon name="arrow-right" size={17} />
+            </a>
+          </div>
         </div>
       </section>
 
@@ -900,9 +918,12 @@ export function SalesPage() {
           Panduan praktis untuk membuat keputusan Shopee dengan angka, bukan
           tebakan.
         </p>
-        <a href={questionWhatsappUrl} rel="noreferrer" target="_blank">
-          WhatsApp 0838-5458-1787
-        </a>
+        <div className="footer-links">
+          <a href={assetPath("/kebijakan-pengembalian/")}>Kebijakan refund</a>
+          <a href={questionWhatsappUrl} rel="noreferrer" target="_blank">
+            WhatsApp 0838-5458-1787
+          </a>
+        </div>
       </footer>
 
       <div className="mobile-buy-bar">
