@@ -67,7 +67,8 @@ const books = [
     title: "Toko Ramai Bukan Keberuntungan.",
     eyebrow: "Traffic & konversi",
     pages: "22 halaman",
-    cover: assetPath("/assets/cover-toko-ramai.png"),
+    value: "Rp249.000",
+    cover: assetPath("/assets/cover-toko-ramai-edisi-baru.png"),
     color: "blue",
     promise:
       "Membaca CTR, ATC, dan CVR agar kamu tahu apa yang harus dibenahi—bukan sekadar menambah budget.",
@@ -83,7 +84,8 @@ const books = [
     title: "Harga Untung Bukan Tebakan.",
     eyebrow: "Harga & laba",
     pages: "20 halaman",
-    cover: assetPath("/assets/cover-harga-untung.png"),
+    value: "Rp149.000",
+    cover: assetPath("/assets/cover-harga-untung-edisi-baru.png"),
     color: "teal",
     promise:
       "Mengubah HPP, potongan platform, iklan, dan biaya operasional menjadi harga serta batas ROAS yang masuk akal.",
@@ -99,7 +101,8 @@ const books = [
     title: "Bintang Lima Bukan Kebetulan.",
     eyebrow: "Ulasan & kepercayaan",
     pages: "12 halaman",
-    cover: assetPath("/assets/cover-bintang-lima.png"),
+    value: "Rp99.000",
+    cover: assetPath("/assets/cover-bintang-lima-edisi-baru.png"),
     color: "wine",
     promise:
       "Membangun ulasan berkualitas dan membalas komplain dengan sistem yang bisa dipakai berulang.",
@@ -138,26 +141,26 @@ const previews = [
   },
 ] as const;
 
-const testimonialDrafts = [
+const testimonials = [
   {
     quote:
-      "Aku kira masalahnya kurang iklan. Setelah mengikuti urutan CTR–ATC–CVR, ternyata listing-ku yang bocor. Dalam satu malam jadi jelas bagian mana yang harus dibenahi.",
-    name: "Nadia*",
-    role: "Seller fashion · Bandung",
+      "Saya tadinya ragu karena sudah pernah beli produk tutorial, tapi baru kali ini dibantu after sales. Saya hemat biaya iklan lebih dari 2 juta rupiah.",
+    name: "Dany P.",
+    role: "Partner kerja · Tangerang",
     icon: "bar-chart-2",
   },
   {
     quote:
-      "Begitu HPP dan semua potongan dimasukkan, harga yang selama ini terasa aman ternyata cuma menyisakan margin tipis. Kalkulatornya bikin keputusan naik harga jadi nggak pakai perasaan.",
-    name: "Riko*",
-    role: "Seller home living · Surabaya",
+      "Thank you, Ibnu. God bless you. This is very helpful, bahkan aku sampai kasih ke adminku langsung dan mudah dipahami. ROAS 30 hari naik 15% 👍",
+    name: "Najwa T.",
+    role: "Partner kerja · Bandung",
     icon: "percent",
   },
   {
     quote:
-      "Bagian ulasan paling kepakai. Aku nggak lagi membalas komplain dengan defensif; templatenya bikin jawaban lebih tenang dan tetap enak dibaca calon pembeli berikutnya.",
-    name: "Ayu*",
-    role: "Seller beauty · Bekasi",
+      "Aku baru buka toko 1 bulan, nggak sengaja lewatin akun Bang Ibnu di TikTok. Pesanan aku dari 1–5 paket sehari jadi 20–30 paket setelah 2 minggu. Thank you bantuannya. 🙏",
+    name: "Hesti A.",
+    role: "Partner kerja · Jakarta",
     icon: "message-circle",
   },
 ] as const;
@@ -245,6 +248,25 @@ export function SalesPage() {
     setCheckoutOpen(true);
   };
 
+  const openQrisStep = () => {
+    trackEvent("add_payment_info", {
+      currency: "IDR",
+      value: 47000,
+      payment_type: "QRIS",
+    });
+    setPaymentStep(2);
+  };
+
+  const openPaymentProofStep = () => {
+    trackEvent("checkout_step_3", {
+      currency: "IDR",
+      value: 47000,
+      checkout_step: 3,
+      step_name: "kirim_bukti",
+    });
+    setPaymentStep(3);
+  };
+
   const openWhatsappProof = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     trackEvent("generate_lead", {
@@ -295,13 +317,14 @@ export function SalesPage() {
           </h1>
           <p className="hero-lede">
             Tiga panduan yang menjawab apa yang harus kamu cek, hitung, dan
-            lakukan. Ditambah kalkulator margin yang bekerja dari angka tokomu
-            sendiri.
+            lakukan. Ditambah kalkulator margin untuk menentukan harga jual,
+            batas aman ROAS, dan apakah angka tokomu benar-benar masih untung.
           </p>
 
           <div className="hero-offer">
             <div>
               <span className="price-label">Semua isi paket</span>
+              <s className="bundle-value">Nilai terpisah Rp596.000</s>
               <strong className="hero-price">Rp47.000</strong>
             </div>
             <div className="offer-divider" />
@@ -346,17 +369,17 @@ export function SalesPage() {
           <img
             alt="Sampul Toko Ramai Bukan Keberuntungan"
             className="book-cover cover-one"
-            src={assetPath("/assets/cover-toko-ramai.png")}
+            src={assetPath("/assets/cover-toko-ramai-edisi-baru.png")}
           />
           <img
             alt="Sampul Harga Untung Bukan Tebakan"
             className="book-cover cover-two"
-            src={assetPath("/assets/cover-harga-untung.png")}
+            src={assetPath("/assets/cover-harga-untung-edisi-baru.png")}
           />
           <img
             alt="Sampul Bintang Lima Bukan Kebetulan"
             className="book-cover cover-three"
-            src={assetPath("/assets/cover-bintang-lima.png")}
+            src={assetPath("/assets/cover-bintang-lima-edisi-baru.png")}
           />
           <div className="tool-ticket">
             <Icon name="tool" size={24} />
@@ -391,7 +414,7 @@ export function SalesPage() {
           <Icon name="tool" size={23} />
           <span>
             <strong>Tool offline</strong>
-            tanpa login atau unggah data
+            cek harga, ROAS, dan laba
           </span>
         </div>
         <div>
@@ -497,6 +520,7 @@ export function SalesPage() {
                 <div className="book-meta">
                   <span>{book.eyebrow}</span>
                   <span>{book.pages}</span>
+                  <span>Nilai {book.value}</span>
                 </div>
                 <h3>{book.title}</h3>
                 <p>{book.promise}</p>
@@ -517,13 +541,20 @@ export function SalesPage() {
               <div className="book-meta">
                 <span>Bonus tool</span>
                 <span>Buka langsung di browser</span>
+                <span>Nilai Rp99.000</span>
               </div>
               <h3>Kalkulator Margin Shopee.</h3>
               <p>
-                Bukan spreadsheet kosong. Tool ini menghitung harga jual, batas
-                bawah ROAS, biaya operasional, afiliasi, laba bulanan, dan
-                kontribusi tiap produk.
+                Banyak seller tahu omzetnya, tetapi tidak tahu angka jual minimum
+                dan titik rugi sebenarnya. Tool ini mengubah semua biaya tokomu
+                menjadi keputusan harga yang bisa langsung dipakai.
               </p>
+              <ul className="calculator-benefits">
+                <li><Icon name="check-circle" size={17} /> Cari harga jual dari HPP dan target margin</li>
+                <li><Icon name="check-circle" size={17} /> Temukan batas ROAS sebelum iklan memakan laba</li>
+                <li><Icon name="check-circle" size={17} /> Hitung afiliasi, pajak, biaya pesanan, dan operasional</li>
+                <li><Icon name="check-circle" size={17} /> Lihat laba bulanan dan kontribusi setiap produk</li>
+              </ul>
               <div className="calculator-tags">
                 <span>Tanpa akun</span>
                 <span>Tanpa internet</span>
@@ -585,22 +616,20 @@ export function SalesPage() {
       <section className="section testimonial-section" id="testimoni">
         <div className="section-heading heading-row">
           <div>
-            <span className="kicker">Placeholder untuk review</span>
-            <h2>“Ini benar-benar kepakai di tokoku?”</h2>
+            <span className="kicker">Testimoni teman & partner kerja</span>
+            <h2>“Benar-benar kepakai di toko.”</h2>
           </div>
           <p>
-            Tiga contoh suara pembeli untuk menguji ritme, panjang, dan tampilan
-            bagian testimoni. Belum merupakan pengalaman pembeli nyata.
+            Pengalaman dari orang yang pernah bekerja bersama Ibnu di Jakarta,
+            Bandung, dan Tangerang.
           </p>
         </div>
 
         <div className="testimonial-grid">
-          {testimonialDrafts.map((testimonial) => (
+          {testimonials.map((testimonial) => (
             <article key={testimonial.name} className="testimonial-card">
               <div className="testimonial-card-top">
-                <span className="testimonial-draft-badge">
-                  Draf · bukan testimoni nyata
-                </span>
+                <span className="testimonial-draft-badge">Pengalaman nyata</span>
                 <Icon name={testimonial.icon} size={21} />
               </div>
               <blockquote>“{testimonial.quote}”</blockquote>
@@ -615,12 +644,12 @@ export function SalesPage() {
           ))}
         </div>
 
-        <p className="testimonial-disclaimer">
+        <p className="testimonial-disclaimer testimonial-result-note">
           <Icon name="shield" size={18} />
           <span>
-            <strong>Catatan:</strong> nama, lokasi, kategori, dan kutipan di atas
-            adalah placeholder untuk review layout. Ganti dengan testimoni
-            pembeli terverifikasi sebelum halaman dibuka ke publik.
+            <strong>Catatan hasil:</strong> setiap toko memiliki produk, biaya,
+            pasar, dan kualitas eksekusi yang berbeda. Testimoni adalah pengalaman
+            pribadi, bukan jaminan hasil yang sama.
           </span>
         </p>
       </section>
@@ -666,9 +695,10 @@ export function SalesPage() {
           <span className="kicker kicker-light">Coba 15 detik</span>
           <h2>Harga jualmu masih punya ruang?</h2>
           <p>
-            Teaser ini hanya mengurangi HPP dan contoh potongan platform 24%.
-            Kalkulator lengkap juga memperhitungkan iklan, afiliasi, pajak,
-            biaya per pesanan, dan operasional.
+            Harga jual yang terlihat aman bisa tetap rugi setelah potongan,
+            iklan, afiliasi, pajak, packing, dan operasional. Teaser ini baru
+            menghitung HPP dan contoh potongan platform 24%; kalkulator lengkap
+            menyatukan semuanya sebelum kamu memutuskan harga.
           </p>
           <div className="quick-fields">
             <label>
@@ -745,6 +775,9 @@ export function SalesPage() {
                 <Icon name="tool" size={18} /> 1 kalkulator offline
               </span>
               <span>
+                <Icon name="percent" size={18} /> Nilai total Rp596.000
+              </span>
+              <span>
                 <Icon name="smartphone" size={18} /> Buka di HP atau laptop
               </span>
               <span>
@@ -755,8 +788,9 @@ export function SalesPage() {
           <div className="offer-checkout">
             <div className="checkout-badge">Paket lengkap</div>
             <span>Total pembayaran</span>
+            <s className="offer-original-price">Rp596.000</s>
             <strong>Rp47.000</strong>
-            <p>Tidak ada biaya tersembunyi dari IBNU Project.</p>
+            <p>Hemat Rp549.000 · tidak ada biaya tersembunyi.</p>
             <button
               className="button button-primary button-large button-block"
               data-testid="offer-buy"
@@ -834,21 +868,19 @@ export function SalesPage() {
       </section>
 
       <section className="section owner-section" aria-label="Tentang pembuat IBNU Project">
-        <div
-          aria-label="Placeholder foto pemilik IBNU Project"
-          className="owner-photo-placeholder"
-          role="img"
-        >
-          <span>Foto pemilik</span>
-          <small>Ganti sebelum peluncuran publik</small>
-        </div>
+        <img
+          alt="Ibnu, pembuat IBNU Project"
+          className="owner-photo"
+          loading="lazy"
+          src={assetPath("/assets/ibnu-owner.png")}
+        />
         <div className="owner-copy">
           <span className="kicker">Orang nyata di balik panduan</span>
           <h2>Materi praktis, dengan bantuan manusia saat dibutuhkan.</h2>
           <p>
-            Bagian ini disiapkan untuk satu foto pemilik IBNU Project dan
-            perkenalan singkat. Kehadiran wajah nyata membantu pembeli merasa
-            lebih yakin sebelum membayar dan menghubungi WhatsApp.
+            Saya menyusun materi ini dari pengalaman mengelola toko fashion dan
+            membantu partner membaca angka tokonya. Kalau ada bagian yang belum
+            jelas, kamu tetap bisa bertanya lewat WhatsApp setelah membeli.
           </p>
           <div className="owner-trust-line">
             <Icon name="message-circle" size={19} />
@@ -876,6 +908,7 @@ export function SalesPage() {
       <div className="mobile-buy-bar">
         <div>
           <span>Paket lengkap</span>
+          <s>Rp596.000</s>
           <strong>Rp47.000</strong>
         </div>
         <button
@@ -948,10 +981,20 @@ export function SalesPage() {
                     <small>54 halaman · file digital</small>
                   </div>
                 </div>
+                <div className="checkout-value-breakdown" aria-label="Nilai isi paket">
+                  <div><span>Toko Ramai</span><s>Rp249.000</s></div>
+                  <div><span>Harga Untung</span><s>Rp149.000</s></div>
+                  <div><span>Bintang Lima</span><s>Rp99.000</s></div>
+                  <div><span>Kalkulator Margin</span><s>Rp99.000</s></div>
+                </div>
                 <div className="order-line">
                   <span>Total yang dibayar</span>
-                  <strong>Rp47.000</strong>
+                  <div>
+                    <s>Rp596.000</s>
+                    <strong>Rp47.000</strong>
+                  </div>
                 </div>
+                <div className="checkout-saving">Kamu hemat Rp549.000 (92%)</div>
                 <ul className="checkout-assurances">
                   <li>
                     <Icon name="check-circle" size={17} /> Tidak ada tambahan biaya
@@ -969,7 +1012,7 @@ export function SalesPage() {
                 <button
                   className="button button-primary button-large button-block"
                   data-testid="continue-to-qris"
-                  onClick={() => setPaymentStep(2)}
+                  onClick={openQrisStep}
                   type="button"
                 >
                   Lanjut ke QRIS
@@ -1021,7 +1064,7 @@ export function SalesPage() {
                 <button
                   className="button button-primary button-large button-block"
                   data-testid="paid-button"
-                  onClick={() => setPaymentStep(3)}
+                  onClick={openPaymentProofStep}
                   type="button"
                 >
                   Saya sudah bayar
