@@ -556,8 +556,8 @@ export function SalesPage() {
                 <li><Icon name="check-circle" size={17} /> Lihat laba bulanan dan kontribusi setiap produk</li>
               </ul>
               <div className="calculator-tags">
-                <span>Tanpa akun</span>
-                <span>Tanpa internet</span>
+                <span>Bebas Akses</span>
+                <span>Mudah Pakai</span>
                 <span>Tanpa unggah data</span>
               </div>
             </div>
@@ -893,8 +893,8 @@ export function SalesPage() {
           src={assetPath("/assets/ibnu-owner.png")}
         />
         <div className="owner-copy">
-          <span className="kicker">Orang nyata di balik panduan</span>
-          <h2>Materi praktis, dengan bantuan manusia saat dibutuhkan.</h2>
+          <span className="kicker">Cerita nyata di balik pengalaman</span>
+          <h2>Materi Praktis dengan bantuan kapanpun setelah kamu beli</h2>
           <p>
             Saya menyusun materi ini dari pengalaman mengelola toko fashion dan
             membantu partner membaca angka tokonya. Kalau ada bagian yang belum
