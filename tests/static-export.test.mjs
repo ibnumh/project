@@ -17,6 +17,22 @@ test("exports the complete sales page", async () => {
   assert.match(html, /ibnu-owner\.png/);
   assert.match(html, /Rp596\.000/);
   assert.match(html, /Isi dirahasiakan/);
+  assert.match(html, /Bagaimana kebijakan pembatalan dan refund/);
+  assert.match(html, /\/kebijakan-pengembalian\//);
+});
+
+test("exports the refund and cancellation policy", async () => {
+  const html = await readFile(
+    new URL("../out/kebijakan-pengembalian/index.html", import.meta.url),
+    "utf8",
+  );
+
+  assert.match(html, /Kebijakan Pembatalan &amp; Pengembalian Dana/);
+  assert.match(html, /paling lambat 2 hari kerja/);
+  assert.match(html, /Pembayaran terpotong lebih dari satu kali/);
+  assert.match(html, /bantuan@ibnuproject\.my\.id/);
+  assert.match(html, /Undang-Undang Nomor 8 Tahun 1999/);
+  assert.match(html, /Peraturan Pemerintah Nomor 80 Tahun 2019/);
 });
 
 test("checkout collects buyer identity before WhatsApp confirmation", async () => {
